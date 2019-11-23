@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class CheatActivity extends LoggingActivity {
 
@@ -12,6 +13,13 @@ public class CheatActivity extends LoggingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
+
+        Intent intent = getIntent();
+        boolean correctAnswer = intent.getBooleanExtra(KEY_CORRECT_ANSWER, false);
+
+        TextView correctAnswerView = findViewById(R.id.correct_answer);
+        correctAnswerView.setText(String.valueOf(correctAnswer));
+
     }
 
     public static Intent makeIntent(Context context, boolean correctAnswer) {
