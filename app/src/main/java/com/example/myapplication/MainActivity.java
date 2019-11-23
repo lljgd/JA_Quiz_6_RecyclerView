@@ -81,7 +81,7 @@ public class MainActivity extends LoggingActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_CODE_CHEAT) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK && CheatActivity.correctAnswerWasShown(data)) {
                 Toast.makeText(this, R.string.judgment_toast, Toast.LENGTH_SHORT).show();
             }
         } else {

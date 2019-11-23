@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class CheatActivity extends LoggingActivity {
 
     private static final String KEY_CORRECT_ANSWER = "key_correct_answer";
+    private static final String KEY_CORRECT_ANSWER_WAS_SHOWN = "key_correct_answer_was_shown";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,23 @@ public class CheatActivity extends LoggingActivity {
         TextView correctAnswerView = findViewById(R.id.correct_answer);
         correctAnswerView.setText(String.valueOf(correctAnswer));
 
-        setResult(RESULT_OK);
+        setResult(RESULT_OK, makeAnswerShownIntent());
+    }
+
+    private static Intent makeAnswerShownIntent() {
+        Intent intent = new Intent();
+        intent.putExtra(KEY_CORRECT_ANSWER_WAS_SHOWN, true);
+        return intent;
     }
 
     public static Intent makeIntent(Context context, boolean correctAnswer) {
         Intent intent = new Intent(context, CheatActivity.class);
         intent.putExtra(KEY_CORRECT_ANSWER, correctAnswer);
         return intent;
+    }
+
+    public static boolean correctAnswerWasShown(Intent intent) {
+        return intent != null &&
+                intent.getBooleanExtra(KEY_CORRECT_ANSWER_WAS_SHOWN, false);
     }
 }
