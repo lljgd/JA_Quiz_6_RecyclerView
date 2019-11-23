@@ -66,7 +66,9 @@ public class MainActivity extends LoggingActivity {
         cheatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, CheatActivity.class);
+                final Question currentQuestion = mQuestionBank[mCurrentIndex];
+                Intent intent =
+                        CheatActivity.makeIntent(MainActivity.this, currentQuestion.isCorrectAnswer());
                 startActivity(intent);
             }
         });
