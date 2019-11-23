@@ -15,7 +15,7 @@ public class MainActivity extends LoggingActivity {
 
     private static final String KEY_CURRENT_INDEX = "key_current_index";
 
-    private Question[] mQuestionBank = new Question[] {
+    private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_australia, true),
             new Question(R.string.question_oceans, true),
             new Question(R.string.question_mideast, false),
@@ -25,6 +25,8 @@ public class MainActivity extends LoggingActivity {
     };
 
     private int mCurrentIndex = 0;
+
+    private boolean isCheater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,8 @@ public class MainActivity extends LoggingActivity {
 
                 final Question currentQuestion = mQuestionBank[mCurrentIndex];
                 questionString.setText(currentQuestion.getQuestionResId());
+
+                isCheater = false;
             }
         });
 
@@ -82,7 +86,7 @@ public class MainActivity extends LoggingActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_CODE_CHEAT) {
             if (resultCode == RESULT_OK && CheatActivity.correctAnswerWasShown(data)) {
-                Toast.makeText(this, R.string.judgment_toast, Toast.LENGTH_SHORT).show();
+                isCheater = true;
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -97,14 +101,20 @@ public class MainActivity extends LoggingActivity {
 
     private void onButtonClicked(boolean answer) {
         Question currentQuestion = mQuestionBank[mCurrentIndex];
-        int toastMessage = (currentQuestion.isCorrectAnswer() == answer) ?
-                R.string.correct_toast :
-                R.string.incorrect_toast;
+        int toastMessage;
+
+        if (isCheater) {
+            toastMessage = R.string.judgment_toast;
+        } else {
+            toastMessage = (currentQuestion.isCorrectAnswer() == answer) ?
+                    R.string.correct_toast :
+                    R.string.incorrect_toast;
+        }
 
         Toast.makeText(
                 MainActivity.this,
                 toastMessage,
-                Toast.LENGTH_LONG
+                Toast.LENGTH_SHORT
         ).show();
     }
 }
