@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -58,6 +59,15 @@ public class MainActivity extends LoggingActivity {
 
                 final Question currentQuestion = mQuestionBank[mCurrentIndex];
                 questionString.setText(currentQuestion.getQuestionResId());
+            }
+        });
+
+        Button cheatButton = findViewById(R.id.cheat_button);
+        cheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CheatActivity.class);
+                startActivity(intent);
             }
         });
     }
