@@ -31,6 +31,8 @@ public class CheatActivity extends LoggingActivity {
 
         TextView correctAnswerView = findViewById(R.id.correct_answer);
         correctAnswerView.setText(String.valueOf(correctAnswer));
+
+        setResult(RESULT_OK);
     }
 
     public static Intent makeIntent(Context context, boolean correctAnswer) {

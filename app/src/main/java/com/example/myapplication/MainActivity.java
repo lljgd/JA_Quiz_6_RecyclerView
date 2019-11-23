@@ -7,7 +7,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 public class MainActivity extends LoggingActivity {
+
+    private static final int REQUEST_CODE_CHEAT = 1;
 
     private static final String KEY_CURRENT_INDEX = "key_current_index";
 
@@ -69,9 +73,20 @@ public class MainActivity extends LoggingActivity {
                 final Question currentQuestion = mQuestionBank[mCurrentIndex];
                 Intent intent =
                         CheatActivity.makeIntent(MainActivity.this, currentQuestion.isCorrectAnswer());
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_CHEAT);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == REQUEST_CODE_CHEAT) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, R.string.judgment_toast, Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
