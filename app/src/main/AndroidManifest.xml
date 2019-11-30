@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CheatActivity"/>
+        <activity android:name=".AllQuestionsActivity"/>
     </application>
 
 </manifest>
