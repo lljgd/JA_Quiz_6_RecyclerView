@@ -15,7 +15,7 @@ public class MainActivity extends LoggingActivity {
 
     private static final String KEY_CURRENT_INDEX = "key_current_index";
 
-    private Question[] mQuestionBank = new Question[]{
+    public static final Question[] QUESTION_BANK = new Question[]{
             new Question(R.string.question_australia, true),
             new Question(R.string.question_oceans, true),
             new Question(R.string.question_mideast, false),
@@ -38,7 +38,7 @@ public class MainActivity extends LoggingActivity {
         }
 
         final TextView questionString = findViewById(R.id.question_string);
-        final Question currentQuestion = mQuestionBank[mCurrentIndex];
+        final Question currentQuestion = QUESTION_BANK[mCurrentIndex];
         questionString.setText(currentQuestion.getQuestionResId());
 
         Button trueButton = findViewById(R.id.true_button);
@@ -61,9 +61,9 @@ public class MainActivity extends LoggingActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                mCurrentIndex = (mCurrentIndex + 1) % QUESTION_BANK.length;
 
-                final Question currentQuestion = mQuestionBank[mCurrentIndex];
+                final Question currentQuestion = QUESTION_BANK[mCurrentIndex];
                 questionString.setText(currentQuestion.getQuestionResId());
 
                 isCheater = false;
@@ -74,7 +74,7 @@ public class MainActivity extends LoggingActivity {
         cheatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Question currentQuestion = mQuestionBank[mCurrentIndex];
+                final Question currentQuestion = QUESTION_BANK[mCurrentIndex];
                 Intent intent =
                         CheatActivity.makeIntent(MainActivity.this, currentQuestion.isCorrectAnswer());
                 startActivityForResult(intent, REQUEST_CODE_CHEAT);
@@ -100,7 +100,7 @@ public class MainActivity extends LoggingActivity {
     }
 
     private void onButtonClicked(boolean answer) {
-        Question currentQuestion = mQuestionBank[mCurrentIndex];
+        Question currentQuestion = QUESTION_BANK[mCurrentIndex];
         int toastMessage;
 
         if (isCheater) {
