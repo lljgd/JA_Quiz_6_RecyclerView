@@ -7,12 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AllQuestionsActivity extends AppCompatActivity {
 
-    private List<Question> mQuestions = questionsList(MainActivity.QUESTION_BANK);
+    private List<Question> mQuestions;
 
     private RecyclerView recyclerView;
 
@@ -27,13 +27,7 @@ public class AllQuestionsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // TODO pass an Adapter to the RecyclerView. Use MainActivity.QUESTION_BANK as an argument
+        mQuestions = Arrays.asList(MainActivity.QUESTION_BANK);
         recyclerView.setAdapter(new AllQuestionAdapter(mQuestions));
-    }
-    private List<Question> questionsList(Question[] questionMain) {
-        List<Question> result = new ArrayList<>();
-        for (Question e: questionMain) {
-            result.add(e);
-        }
-        return result;
     }
 }
