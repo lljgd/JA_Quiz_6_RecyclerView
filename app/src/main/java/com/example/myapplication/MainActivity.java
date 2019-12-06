@@ -80,6 +80,15 @@ public class MainActivity extends LoggingActivity {
                 startActivityForResult(intent, REQUEST_CODE_CHEAT);
             }
         });
+
+        Button allButton = findViewById(R.id.all_questions);
+        allButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AllQuestionsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
